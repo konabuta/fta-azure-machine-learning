@@ -18,7 +18,6 @@ MLops is just a concept of DevOps of machine learning. Many customers are confus
 
 # MLOps Maturity Model with Azure Machine Learning (Concept)
 
-
 <br/>
 
 ## Introduction
@@ -41,7 +40,6 @@ This table is a abstract of each level of MLOps maturity model. We will introduc
 |Level 2 - Automated Training|Tracked, run results and model artifacts are captured in a repeatable way|Manual release,clean handoff process, managed by SWE team|Manual, heavily DS driven, basic integration tests added|
 |Level 3 - Automated Model Deployment|Tracked, run results and model artifacts are captured in a repeatable way|Automated, CI/CD pipeline set up, everything is version controlled|Semi-automated, unit and integration tests added, still needs human signoff|
 |Level 4 - Full MLOps Automated Retraining|Tracked, run results and model artifacts are captured in a repeatable way, retraining set up based on metrics from app|Automated, CI/CD pipeline set up, everything is version controlled, A/B testing has been added|Semi-automated, unit and integration tests added, may need human signoff|
-
 
 
 
@@ -79,16 +77,14 @@ This is the level to preprocess data, train model and deploy model interactively
 
 
 
-<!-- general diagram -->
-
-##### Training Process
-##### Release Process
-##### Integration into app
+<img src="docs/images/level0.png" width-500 /><br/>
 
 
-#### Implementation with Azure Machine Learning
+| People | Model Creation | Model Release | Application Integration |
+| ------ | -------------- | ------------- | ----------------------- |
+| <ul><li>Data scientists: siloed, not in regular communications with the larger team<li>Data engineers (_if exists_): siloed, not in regular communications with the larger team<li>Software engineers: siloed, receive model remotely from the other team members</ul> | <ul><li>Data gathered manually<li>Compute is likely not managed<li>Experiments aren't predictably tracked<li>End result may be a single model file manually handed off with inputs/outputs</ul> | <ul><li>Manual process<li>Scoring script may be manually created well after experiments, not version controlled<li>Release handled by data scientist or data engineer alone</ul> | <ul><li>Heavily reliant on data scientist expertise to implement<li>Manual releases each time</ul> |
 
-<!-- Azure ML Diagram -->
+<img src="docs/images/level0-azureml.png" width-500 /><br/>
 
 
 #### Challenges
@@ -105,18 +101,16 @@ This is the level to preprocess data, train model and deploy model interactively
 
 ### Level 1 : DevOps no MLOps
 
-xxxx
 
-<img src="https://storage.googleapis.com/zenn-user-upload/714ed3ab4090-20211215.png" with=500 /><br/>
-
-##### Training Process
-##### Release Process
-##### Integration into app
+<img src="docs/images/level1.png" width-500 /><br/>
 
 
-#### Implementation with Azure Machine Learning
+| People | Model Creation | Model Release | Application Integration |
+| ------ | -------------- | ------------- | ----------------------- |
+| <ul><li>Data scientists: siloed, not in regular communications with the larger team<li>Data engineers (if exists): siloed, not in regular communication with the larger team<li>Software engineers: siloed, receive model remotely from the other team members</ul> | <ul><li>Data pipeline gathers data automatically<li>Compute is or isn't managed<li>Experiments aren't predictably tracked<li>End result may be a single model file manually handed off with inputs/outputs</ul> | <ul><li>Manual process<li>Scoring script may be manually created well after experiments, likely version controlled<li>Is handed off to software engineers</ul> | <ul><li>Basic integration tests exist for the model<li>Heavily reliant on data scientist expertise to implement model<li>Releases automated<li>Application code has unit tests</ul> |
 
-<img src="https://storage.googleapis.com/zenn-user-upload/fab9f7aab2b2-20211222.png" width-500 /><br/>
+
+<img src="docs/images/level1-azureml.png" width-500 /><br/>
 
 
 #### Challenges
@@ -132,24 +126,19 @@ xxxx
     - Experiment can be reproduced. Assets are saved associated with experiments. 
 - Operate model
     - Models are maintained and can be associated with experiments and endpoints.
+
 ---
 
 ### Level 2 : Automated Training
 
-xxxx
+<img src="docs/images/level2.png" width-500 /><br/>
 
 
-<!-- general diagram -->
+| People | Model Creation | Model Release | Application Integration |
+| ------ | -------------- | ------------- | ----------------------- |
+| <ul><li>Data scientists: Working directly with data engineers to convert experimentation code into repeatable scripts/jobs<li>Data engineers: Working with data scientists<li>Software engineers: siloed, receive model remotely from the other team members</ul> | <ul><li>Data pipeline gathers data automatically<li>Compute managed<li>Experiment results tracked<li>Both training code and resulting models are version controlled</ul> | <ul><li>Manual release<li>Scoring script is version controlled with tests<li>Release managed by Software engineering team</ul> | <ul><li>Basic integration tests exist for the model<li>Heavily reliant on data scientist expertise to implement model<li>Application code has unit tests</ul> |
 
-##### Training Process
-##### Release Process
-##### Integration into app
-
-
-#### Implementation with Azure Machine Learning
-
-<!-- Azure ML Diagram -->
-
+<img src="docs/images/level2-azureml.png" width-500 /><br/>
 
 #### Challenges
 
@@ -161,19 +150,16 @@ xxxx
 
 ### Level 3 : Automated Model Deployment
 
-xxxx
+<img src="docs/images/level3.png" width-500 /><br/>
 
 
-<!-- general diagram -->
 
-##### Training Process
-##### Release Process
-##### Integration into app
+| People | Model Creation | Model Release | Application Integration |
+| ------ | -------------- | ------------- | ----------------------- |
+| <ul><li>Data scientists: Working directly with data engineers to convert experimentation code into repeatable scripts/jobs<li>Data engineers: Working with data scientists and software engineers to manage inputs/outputs<li>Software engineers: Working with data engineers to automate model integration into application code</ul> | <ul><li>Data pipeline gathers data automatically<li>Compute managed<li>Experiment results tracked<li>Both training code and resulting models are version controlled</ul> | <ul><li>Automatic release<li>Scoring script is version controlled with tests<li>Release managed by continuous delivery (CI/CD) pipeline</ul> | <ul><li>Unit and integration tests for each model release<li>Less reliant on data scientist expertise to implement model<li>Application code has unit/integration tests</ul> |
 
 
-#### Implementation with Azure Machine Learning
-
-<!-- Azure ML Diagram -->
+<img src="docs/images/level3-azureml.png" width-500 /><br/>
 
 
 #### Challenges
@@ -186,19 +172,17 @@ xxxx
 
 ### Level 4 : Full MLOps Automated Retraining
 
-xxxx
 
 
-<!-- general diagram -->
+<img src="docs/images/level4.png" width-500 /><br/>
 
-##### Training Process
-##### Release Process
-##### Integration into app
+| People | Model Creation | Model Release | Application Integration |
+| ------ | -------------- | ------------- | ----------------------- |
+| <ul><li>Data scientists: Working directly with data engineers to convert experimentation code into repeatable scripts/jobs. Working with software engineers to identify markers for data engineers<li>Data engineers: Working with data scientists and software engineers to manage inputs/outputs<li>Software engineers: Working with data engineers to automate model integration into application code. Implementing post-deployment metrics gathering</ul> | <ul><li>Data pipeline gathers data automatically<li>Retraining triggered automatically based on production metrics<li>Compute managed<li>Experiment results tracked<li>Both training code and resulting models are version controlled</ul> | <ul><li>Automatic Release<li>Scoring Script is version controlled with tests<li>Release managed by continuous integration and CI/CD pipeline</ul> | <ul><li>Unit and Integration tests for each model release<li>Less reliant on data scientist expertise to implement model<li>Application code has unit/integration tests</ul> |
 
 
-#### Implementation with Azure Machine Learning
+<img src="docs/images/level4-azureml.png" width-500 /><br/>
 
-<!-- Azure ML Diagram -->
 
 
 #### Challenges
