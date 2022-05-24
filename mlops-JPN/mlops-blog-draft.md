@@ -89,11 +89,20 @@ This is the level to preprocess data, train model and deploy model interactively
 
 #### Challenges
 
+- Platform
+    - Standardize the machine learning platform.
+    - Get machines/clusters that have enough power to run machine learning job.
+    - Set up code repository.
+- Code Quality
+    - Write code in a way that can be tested and unit test is ready. 
 
 
 #### What's next?
 
-
+- Standardize the machine learning platform across organizations and teams.
+- Setup code repository.
+- Automate code test.
+- Setup data platform.
 
 
 
@@ -116,16 +125,18 @@ This is the level to preprocess data, train model and deploy model interactively
 #### Challenges
 
 - Reproducibility
-    - Asset tracking, reproduce experiments
-    - execute as a pipeline
-    - model is saved and ready to compare new model with old model.
+    - Save assets in machine learning lifecycle
+    - Reproduce the experiments
+    - Setup pipeline to run model training and deployment.
+    - Save model and ready to compare new model with old model.
+
 
 #### What's next?
 
-- Reproducibility
-    - Experiment can be reproduced. Assets are saved associated with experiments. 
-- Operate model
-    - Models are maintained and can be associated with experiments and endpoints.
+- Ensure reproducibility of the experiments.
+    - Model training and deployment can be reproduced easily. Assets are saved associated with the experiments.
+- Operate model.
+    - Models are maintained and can be associated with the experiments and endpoints.
 
 ---
 
@@ -142,8 +153,20 @@ This is the level to preprocess data, train model and deploy model interactively
 
 #### Challenges
 
+- Deployment
+    - Deploy models into multiple inference endpoints quickly.
+- Model quality
+    - Test the trained model behavior and performance.
+    - Ensure model has interpretability/explainability and/or fairness.
 
 #### What's next?
+
+- Deploy pipelines.
+    - Build container that receive data and return prediction results nad build pipeline to deploy container into container runtime like Kubernetes.
+    - Build pipeline that receive batch data from data sources and return prediction results into data sources.
+- Implement model quality.
+    - Automated test model using test data.
+    - Interpret model or explain modelEnsure model with explanability techniques.
 
 
 ---
@@ -164,9 +187,22 @@ This is the level to preprocess data, train model and deploy model interactively
 
 #### Challenges
 
+- Deployment
+    - Update models with minimal user impact.
+- Monitoring
+    - Detect data drift and performance degradation.
+- Automation
+    - Retrain model automatically based on monitoring metrics and logs.
 
 #### What's next?
 
+- Monitoring system to detect data drift and performance degradation.
+    - List of metrics and logs to monitor.
+    - Build systems to gather logs and calculated metrics quickly.
+- E2E Automation.
+    - Implement pipelines for model training and deployment pipelines that can be executed without interruption.
+    - Build systems to monitor blue/green deployment and retrained model.
+    - Implement triggers to run retraining and redeployment based on monitoring metrics and logs.
 
 ---
 
@@ -185,15 +221,10 @@ This is the level to preprocess data, train model and deploy model interactively
 
 
 
-#### Challenges
-
-
-#### What's next?
-
-
 ---
 
 ## Conclusion
+
 
 
 ## About the author
