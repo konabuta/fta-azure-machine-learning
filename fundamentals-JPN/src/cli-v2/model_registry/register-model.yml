@@ -1,0 +1,4 @@
+$schema: https://azuremlschemas.azureedge.net/latest/model.schema.json
+name: lgb-custom-model
+type: custom_model
+description: Model created from LightGBM model directory.
