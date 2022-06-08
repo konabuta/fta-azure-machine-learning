@@ -1,0 +1,12 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+experiment_name: ftalive-demo-training
+command: |
+  pip freeze
+  python train.py --titanic-csv ${{inputs.titanic_csv}}
+code: src
+inputs:
+  titanic_csv:
+    type: uri_file
+    path: azureml:titanic@latest
+environment: azureml:lightgbm-env@latest
+compute: azureml:cpu-clusters

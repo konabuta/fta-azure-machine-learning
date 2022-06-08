@@ -1,0 +1,1 @@
+az ml online-endpoint update -n ftalive-demo --traffic "blue=80 green=20"
