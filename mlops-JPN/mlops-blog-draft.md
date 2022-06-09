@@ -1,6 +1,6 @@
 <!-- 
 ## Goal of this blog
-MLops is just a concept of DevOps of machine learning. Many customers are confusing about MLOps because "MLOps" become buzz phrase like AI we saw a few years ago. This blog introduce "MLOps Maturity Model" created mainly by CSE team which defines what to implement in each level and will be very helpful customers to set a concrete goal of their machine learning projects in implementing MLOps technology.
+MLops is a concept and technology of DevOps of machine learning. Many customers are confusing about MLOps because "MLOps" become buzz phrase like AI we saw a few years ago. This blog will introduce "MLOps Maturity Model" created mainly by CSE team which defines what to implement in each level and will be very helpful customers to set concrete goals of their machine learning projects in implementing MLOps technology.
 
 ## Agenda
 - Introduction
@@ -21,14 +21,14 @@ MLops is just a concept of DevOps of machine learning. Many customers are confus
 <br/>
 
 ## Introduction
-MLOps (machine learning operations) is based on DevOps principles and practices that increases workflow efficiencies in machine learning lifecycle. By implementing MLOps, you can make your ML project more agile and more scalable and increase the quality and responsibility.
+MLOps (machine learning operations) is based on DevOps principles and practices that increases workflow efficiencies in machine learning lifecycle. By adopting and implementing MLOps, you can make your ML project more agile and more scalable and then increase the quality and responsibility.
 
 ### MLOps Maturity Model
 
 To clarify the principle and practice of MLOps, Microsoft defines MLOps maturity model. Because different AI Systems have different requirements and difference organizations and team have different maturity levels, MLOps maturity model will be helpful in the following points.
 
-- set a goal of their machine learning projects in implementing MLOps technologies.
-- set a plan to grow your MLOps capability in increments.
+- set goals of their machine learning projects in implementing MLOps technologies.
+- set plans to grow your MLOps capability in increments.
 
 
 This table is a abstract of each level of MLOps maturity model. We will introduce more details in the following sections of this blog.
@@ -56,13 +56,15 @@ Azure Machine Learning Workspace is the top-level resource for Azure Machine Lea
 
 Here is a list of Azure Machine Learning assets you should know before reading this blog.
 
-- Datastores & Datasets
-- Experiments and Runs
+- Data (Datastores & Datasets)
+- Job (Experiments and Runs)
 - Models
 - Environments
-- Endpoints
+- Component
 - Pipelines
+- Endpoints
 
+For more details, please check out [How Azure Machine Learning works: resources and assets (v2)](https://docs.microsoft.com/en-us/azure/machine-learning/concept-azure-machine-learning-v2?tabs=cli).
 <br/>
 
 ## Maturity Model with Azure Machine Learning
@@ -73,7 +75,9 @@ In this section, we will explain the details of each level of Maturity Model.
 
 ### Level 0 : No MLOps
 
-This is the level to preprocess data, train model and deploy model interactively and exploratory. Data scientists work on a individual basis. There will be reproducibility issues of your machine learning models. Assets generated in the platform which is not maintained by the organization and team are unreliable and not responsible.
+This is a level to pre-process data manually from data source and train and deploy model interactively and exploratory. Data scientists work on a individual basis. 
+
+There will be reproducibility issues of your machine learning models. Assets generated in the platform which is not maintained by the organization and team. And no test is configured. So deployed model is unreliable and not responsible.
 
 
 
@@ -84,32 +88,39 @@ This is the level to preprocess data, train model and deploy model interactively
 | ------ | -------------- | ------------- | ----------------------- |
 | <ul><li>Data scientists: siloed, not in regular communications with the larger team<li>Data engineers (_if exists_): siloed, not in regular communications with the larger team<li>Software engineers: siloed, receive model remotely from the other team members</ul> | <ul><li>Data gathered manually<li>Compute is likely not managed<li>Experiments aren't predictably tracked<li>End result may be a single model file manually handed off with inputs/outputs</ul> | <ul><li>Manual process<li>Scoring script may be manually created well after experiments, not version controlled<li>Release handled by data scientist or data engineer alone</ul> | <ul><li>Heavily reliant on data scientist expertise to implement<li>Manual releases each time</ul> |
 
+#### Azure Machine Learning perspective
+
+If you use Azure Machine Learning, Compute Instance is a good place to start for your machine learning journey. It includes essential python libraries and development tools like JupyterLab, R Studio and VSCode remote development feature.
 <img src="docs/images/level0-azureml.png" width-500 /><br/>
 
 
 #### Challenges
 
 - Platform
-    - Standardize the machine learning platform.
-    - Get machines/clusters that have enough power to run machine learning job.
-    - Set up code repository.
-- Code Quality
-    - Write code in a way that can be tested and unit test is ready. 
+    - Difficult to reproduce runtime because data scientists create and use their own customized and no shared machine learning service.
+    - Often compute resources don't have enough power to run job at scale.
+    - Assets like train code are not maintained by data scientists.
+- Quality
+    - No test is configured. Or test is not design across the organization.
 
 
 #### What's next?
 
-- Standardize the machine learning platform across organizations and teams.
+- Standardize the machine learning platform across the organizations and teams.
 - Setup code repository.
-- Automate code test.
-- Setup data platform.
+- Configure and automate code test against train and score script.
+- Setup data pipeline to be able to get data easily.
 
 
+Next, we will introduce _Level 1 : DevOps no MLOps_
 
 ---
 
 ### Level 1 : DevOps no MLOps
 
+This is a level that data scientists work on a standardized machine learning platform and data pipeline is maintained by data engineers.
+
+Reproduce the model training is still difficult because machine learning assets like data, python packages are not shared and job denpedencies are maintained by each data scientists (not shared).
 
 <img src="docs/images/level1.png" width-500 /><br/>
 
@@ -119,24 +130,30 @@ This is the level to preprocess data, train model and deploy model interactively
 | <ul><li>Data scientists: siloed, not in regular communications with the larger team<li>Data engineers (if exists): siloed, not in regular communication with the larger team<li>Software engineers: siloed, receive model remotely from the other team members</ul> | <ul><li>Data pipeline gathers data automatically<li>Compute is or isn't managed<li>Experiments aren't predictably tracked<li>End result may be a single model file manually handed off with inputs/outputs</ul> | <ul><li>Manual process<li>Scoring script may be manually created well after experiments, likely version controlled<li>Is handed off to software engineers</ul> | <ul><li>Basic integration tests exist for the model<li>Heavily reliant on data scientist expertise to implement model<li>Releases automated<li>Application code has unit tests</ul> |
 
 
+#### Azure Machine Learning perspective
+
+Azure Machine Learning is a shared and collaborative machine learning platform. By using Data feature, you can access to data source easily. Once you trained model, you can register it to Model feature and deploy using Managed Endpoints that is new version of endpoint feature.
+
+Azure Machine Learning can integrate with GitHub. So you can share your train and inference code on GitHub and you can test codes automatically using GitHub Actions.
 <img src="docs/images/level1-azureml.png" width-500 /><br/>
 
 
 #### Challenges
 
 - Reproducibility
-    - Save assets in machine learning lifecycle
-    - Reproduce the experiments
-    - Setup pipeline to run model training and deployment.
-    - Save model and ready to compare new model with old model.
+    - Assets are not shared in machine learning lifecycle.
+    - Job dependencies are also not shared.
+
 
 
 #### What's next?
 
 - Ensure reproducibility of the experiments.
-    - Model training and deployment can be reproduced easily. Assets are saved associated with the experiments.
+    - Automate and reproduce model training.
+    - Save assets associated with the experiments.
+    - Define job dependencies in the pipeline.
 - Operate model.
-    - Models are maintained and can be associated with the experiments and endpoints.
+    - Maintain model and associate it with the experiments and endpoints.
 
 ---
 
@@ -148,6 +165,16 @@ This is the level to preprocess data, train model and deploy model interactively
 | People | Model Creation | Model Release | Application Integration |
 | ------ | -------------- | ------------- | ----------------------- |
 | <ul><li>Data scientists: Working directly with data engineers to convert experimentation code into repeatable scripts/jobs<li>Data engineers: Working with data scientists<li>Software engineers: siloed, receive model remotely from the other team members</ul> | <ul><li>Data pipeline gathers data automatically<li>Compute managed<li>Experiment results tracked<li>Both training code and resulting models are version controlled</ul> | <ul><li>Manual release<li>Scoring script is version controlled with tests<li>Release managed by Software engineering team</ul> | <ul><li>Basic integration tests exist for the model<li>Heavily reliant on data scientist expertise to implement model<li>Application code has unit tests</ul> |
+
+#### Azure Machine Learning perspective
+
+Azure Machine Learning CLI v2 is a new version of Azure Machine Learning. You can write your job using YAML files and execute command lines. Python SDK is also available if you want to use just Python. And if you job has complex dependencies, you can use Azure ML Pipeline to design your job workflows.
+
+
+And you can use GitHub Actions to trigger model training job easily via CLI v2. Typical cases are as follows:
+- Trigger model training job every time code in GitHub was changes by pull request.
+- Trigger model training job to train model on a schedule to adopt to new data.
+
 
 <img src="docs/images/level2-azureml.png" width-500 /><br/>
 
@@ -181,7 +208,7 @@ This is the level to preprocess data, train model and deploy model interactively
 | ------ | -------------- | ------------- | ----------------------- |
 | <ul><li>Data scientists: Working directly with data engineers to convert experimentation code into repeatable scripts/jobs<li>Data engineers: Working with data scientists and software engineers to manage inputs/outputs<li>Software engineers: Working with data engineers to automate model integration into application code</ul> | <ul><li>Data pipeline gathers data automatically<li>Compute managed<li>Experiment results tracked<li>Both training code and resulting models are version controlled</ul> | <ul><li>Automatic release<li>Scoring script is version controlled with tests<li>Release managed by continuous delivery (CI/CD) pipeline</ul> | <ul><li>Unit and integration tests for each model release<li>Less reliant on data scientist expertise to implement model<li>Application code has unit/integration tests</ul> |
 
-
+#### Azure Machine Learning perspective
 <img src="docs/images/level3-azureml.png" width-500 /><br/>
 
 
