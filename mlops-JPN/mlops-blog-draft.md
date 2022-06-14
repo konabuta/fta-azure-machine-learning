@@ -1,6 +1,6 @@
 <!-- 
 ## Goal of this blog
-MLops is a concept and technology of DevOps of machine learning. Many customers are confusing about MLOps because "MLOps" become buzz phrase like AI we saw a few years ago. This blog will introduce "MLOps Maturity Model" created mainly by CSE team which defines what to implement in each level and will be very helpful customers to set concrete goals of their machine learning projects in implementing MLOps technology.
+MLOps is a concept and technology of DevOps of machine learning. Many customers are confusing about MLOps because "MLOps" become buzz phrase like AI we saw a few years ago. This blog will introduce "MLOps Maturity Model" created mainly by CSE team which defines what to implement in each level and will be very helpful customers to set concrete goals of their machine learning projects in implementing MLOps technology.
 
 ## Agenda
 - Introduction
@@ -21,17 +21,17 @@ MLops is a concept and technology of DevOps of machine learning. Many customers 
 <br/>
 
 ## Introduction
-MLOps (machine learning operations) is based on DevOps principles and practices that increases workflow efficiencies in machine learning lifecycle. By adopting and implementing MLOps, you can make your ML project more agile and more scalable and then increase the quality and responsibility.
+MLOps (machine learning operations) is based on DevOps principles and practices that increases overall workflow efficiencies and qualities in machine learning lifecycle. By adopting and implementing MLOps, you can make your ML system more agile and more scalable and then increase the qualities and responsibilities.
 
 ### MLOps Maturity Model
 
-To clarify the principle and practice of MLOps, Microsoft defines MLOps maturity model. Because different AI Systems have different requirements and difference organizations and team have different maturity levels, MLOps maturity model will be helpful in the following points.
+To clarify the principles and practices of MLOps, Microsoft defines MLOps maturity model. Because different AI Systems have different requirements and difference organizations have different maturity levels, MLOps maturity model will be useful and helpful in the following points.
 
 - set goals of their machine learning projects in implementing MLOps technologies.
-- set plans to grow your MLOps capability in increments.
+- set plans to grow your MLOps capabilities in increments.
 
 
-This table is a abstract of each level of MLOps maturity model. We will introduce more details in the following sections of this blog.
+This table is a abstract of each level of MLOps maturity model. Be careful, it depends on the requirements of your organization and ML system which level is your goal to go. We will introduce more details in the following sections of this blog.
 
 |Maturity Level| Training Process | Release Process| Integration into app|
 |---|---|---|---|
@@ -42,10 +42,14 @@ This table is a abstract of each level of MLOps maturity model. We will introduc
 |Level 4 - Full MLOps Automated Retraining|Tracked, run results and model artifacts are captured in a repeatable way, retraining set up based on metrics from app|Automated, CI/CD pipeline set up, everything is version controlled, A/B testing has been added|Semi-automated, unit and integration tests added, may need human signoff|
 
 
+>caution: As you go to high level maturity, not only technologies but also people and cultures are importance. This blog is focus on technology. Please see [AI Business school](https://www.microsoft.com/en-us/ai/ai-business-school) to learn about AI strategies in your organization, AI-ready culture etc.
+
+
+<br/>
 
 ### MLOps with Azure Machine Learning
 
-In Azure, you can use Azure Machine Learning to implement fully machine learning lifecycle and MLOps in cooperation with GitHub (or Azure DevOps) and Responsible AI technologies etc.
+Azure Machine Learning is a open source friendly machine learning platform to implement full machine learning lifecycle and MLOps in cooperation with GitHub (or Azure DevOps) and Responsible AI technologies etc.
 
 
 ### Azure Machine Learning Workspace and assets
@@ -58,26 +62,26 @@ Here is a list of Azure Machine Learning assets you should know before reading t
 
 - Data (Datastores & Datasets)
 - Job (Experiments and Runs)
-- Models
-- Environments
+- Model
+- Environment
 - Component
-- Pipelines
-- Endpoints
+- Pipeline
+- Endpoint
 
 For more details, please check out [How Azure Machine Learning works: resources and assets (v2)](https://docs.microsoft.com/en-us/azure/machine-learning/concept-azure-machine-learning-v2?tabs=cli).
 <br/>
 
 ## Maturity Model with Azure Machine Learning
 
-In this section, we will explain the details of each level of Maturity Model.
+In this section, we will explain the abstract and the details with Azure Machine Learning technologies in each level of Maturity Model.
 
 ---
 
 ### Level 0 : No MLOps
 
-This is a level to pre-process data manually from data source and train and deploy model interactively and exploratory. Data scientists work on a individual basis. 
+This is a level to pre-process data manually from data source and train and deploy model interactively and exploratory.Data scientists work on a individual basis to find best model. It is also PoC phase in the project. 
 
-There will be reproducibility issues of your machine learning models. Assets generated in the platform which is not maintained by the organization and team. And no test is configured. So deployed model is unreliable and not responsible.
+There will be reproducibility issues of your machine learning models. Assets generated in the platform which is not maintained by the organizations. And no test is configured. So deployed model is unreliable and not responsible.
 
 
 
@@ -90,25 +94,29 @@ There will be reproducibility issues of your machine learning models. Assets gen
 
 #### Azure Machine Learning perspective
 
-If you use Azure Machine Learning, Compute Instance is a good place to start for your machine learning journey. It includes essential python libraries and development tools like JupyterLab, R Studio and VSCode remote development feature.
+If you use Azure Machine Learning, Compute Instance is a good place to start for your machine learning journey. It includes essential Python/R libraries and development tools like JupyterLab, R Studio and VSCode remote development feature.
 <img src="docs/images/level0-azureml.png" width-500 /><br/>
 
 
 #### Challenges
 
-- Platform
-    - Difficult to reproduce runtime because data scientists create and use their own customized and no shared machine learning service.
+- Reproducibility
+    - It is very difficult to reproduce training model job because data scientists use their own customized machine learning tools and codes and Python/R packages that are used by each data scientists are not shared within the organization.
+- Quality & Security
+    - No test is configured. Or test policies are not design across the organization.
+    - There are security concerns in machine learning tools that are not maintained by IT.
+- Scalability
     - Often compute resources don't have enough power to run job at scale.
-    - Assets like train code are not maintained by data scientists.
-- Quality
-    - No test is configured. Or test is not design across the organization.
+    - High-performance compute resources are not shared within organization, that leads to cost to increase.
+- Other
+    - Data source is not maintained for machine learning. It requires manual steps to get training data.
 
 
 #### What's next?
 
-- Standardize the machine learning platform across the organizations and teams.
-- Setup code repository.
-- Configure and automate code test against train and score script.
+- Standardize the machine learning platform across the organizations and create shared high-performance compute resources.
+- Setup code repository and share code used by data scientists.
+- Configure and automate code test against train and score scripts.
 - Setup data pipeline to be able to get data easily.
 
 
@@ -168,10 +176,13 @@ Azure Machine Learning can integrate with GitHub. So you can share your train an
 
 #### Azure Machine Learning perspective
 
-Azure Machine Learning CLI v2 is a new version of Azure Machine Learning. You can write your job using YAML files and execute command lines. Python SDK is also available if you want to use just Python. And if you job has complex dependencies, you can use Azure ML Pipeline to design your job workflows.
+Azure ML `Job`, `Data` and `Environment` are very useful to automate your training job. `Job` manages your training job and logs parameters and metrics. `Data` is an abstract data source for training job. And `Environment` defines Python packages, environment variables, and Docker settings.
+
+Azure Machine Learning CLI v2 is a new version of Azure Machine Learning. You can define your job using YAML files and execute your job via command lines (Azure CLI). Python SDK is also available if you want to define using Python code. And if you job has complex dependencies, you can use Azure ML `Pipeline` to design your job workflows.
 
 
-And you can use GitHub Actions to trigger model training job easily via CLI v2. Typical cases are as follows:
+And you can use GitHub Actions to trigger model training job easily via Azure ML CLI v2. Typical cases are as follows:
+
 - Trigger model training job every time code in GitHub was changes by pull request.
 - Trigger model training job to train model on a schedule to adopt to new data.
 
@@ -211,8 +222,17 @@ And you can use GitHub Actions to trigger model training job easily via CLI v2. 
 #### Azure Machine Learning perspective
 <img src="docs/images/level3-azureml.png" width-500 /><br/>
 
+Managed Endpoint is very useful to deploy model into inference environments. You can deploy it using Azure ML CLI v2 and automate by using GitHu Actions.
+
+If you want to put gate between Stage and Production, you can use GitHub environments.
+
 
 #### Challenges
+
+- Model degradation
+    - Model performance degrades over time.
+- Model Retraining
+    - Inference environments are not monitored enough. It is difficult to when to retrain model.
 
 - Deployment
     - Update models with minimal user impact.
@@ -223,13 +243,12 @@ And you can use GitHub Actions to trigger model training job easily via CLI v2. 
 
 #### What's next?
 
-- Monitoring system to detect data drift and performance degradation.
-    - List of metrics and logs to monitor.
-    - Build systems to gather logs and calculated metrics quickly.
-- E2E Automation.
-    - Implement pipelines for model training and deployment pipelines that can be executed without interruption.
-    - Build systems to monitor blue/green deployment and retrained model.
-    - Implement triggers to run retraining and redeployment based on monitoring metrics and logs.
+- Monitoring inference environments.
+    - Detect data drift by regularly scan data.
+    - Monitor metrics and logs that are associated with your model performance.
+- Automation
+    - Trigger training pipeline for retraining model based on metrics and logs (above).
+    - Rollout new model safely into production endpoint using blue/green deployment.
 
 ---
 
@@ -250,7 +269,7 @@ And you can use GitHub Actions to trigger model training job easily via CLI v2. 
 
 ---
 
-## Conclusion
+## Summary
 
 
 
