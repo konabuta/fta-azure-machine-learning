@@ -230,22 +230,17 @@ If you want to put gate between Stage and Production, you can use GitHub environ
 #### Challenges
 
 - Model degradation
-    - Model performance degrades over time.
+    - Model is not upgraded after deployment. User experience get worse due to model performance degradation over time.
 - Model Retraining
     - Inference environments are not monitored enough. It is difficult to when to retrain model.
+    - It is difficult to deploy new model into production inference environment without affecting customers.
 
-- Deployment
-    - Update models with minimal user impact.
-- Monitoring
-    - Detect data drift and performance degradation.
-- Automation
-    - Retrain model automatically based on monitoring metrics and logs.
 
 #### What's next?
 
-- Monitoring inference environments.
-    - Detect data drift by regularly scan data.
-    - Monitor metrics and logs that are associated with your model performance.
+- Implementing monitoring system.
+    - Detect data drift by scanning data regularly.
+    - Monitor metrics and logs that are associated with your model and system performance.
 - Automation
     - Trigger training pipeline for retraining model based on metrics and logs (above).
     - Rollout new model safely into production endpoint using blue/green deployment.
@@ -262,15 +257,20 @@ If you want to put gate between Stage and Production, you can use GitHub environ
 | ------ | -------------- | ------------- | ----------------------- |
 | <ul><li>Data scientists: Working directly with data engineers to convert experimentation code into repeatable scripts/jobs. Working with software engineers to identify markers for data engineers<li>Data engineers: Working with data scientists and software engineers to manage inputs/outputs<li>Software engineers: Working with data engineers to automate model integration into application code. Implementing post-deployment metrics gathering</ul> | <ul><li>Data pipeline gathers data automatically<li>Retraining triggered automatically based on production metrics<li>Compute managed<li>Experiment results tracked<li>Both training code and resulting models are version controlled</ul> | <ul><li>Automatic Release<li>Scoring Script is version controlled with tests<li>Release managed by continuous integration and CI/CD pipeline</ul> | <ul><li>Unit and Integration tests for each model release<li>Less reliant on data scientist expertise to implement model<li>Application code has unit/integration tests</ul> |
 
+#### Azure Machine Learning perspective
 
 <img src="docs/images/level4-azureml.png" width-500 /><br/>
 
+By collections metrics and logs in Azure Monitor and Azure Application Insights, you can judge if deployed model performs well or not and system performance is enough or not. Although often people judgement intervenes, you can trigger retraining pipeline automatically. 
+
+When deploying new model into existing inference endpoint, you can use blue-green deployment to control traffics into production inference endpoint before rolling new model out completely.
 
 
 ---
 
 ## Summary
 
+We introduced a concept of MLOps maturity model and explained the architecture and product features of Microsoft Technologies (Azure Machine Learning and GitHub) in each maturity levels. We also discussed the challenges and what's next items for each maturity levels.
 
 
 ## About the author
