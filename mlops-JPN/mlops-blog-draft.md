@@ -21,7 +21,10 @@ MLOps is a concept and technology of DevOps of machine learning. Many customers 
 <br/>
 
 ## Introduction
-MLOps (machine learning operations) is based on DevOps principles and practices that increases overall workflow efficiencies and qualities in machine learning lifecycle. By adopting and implementing MLOps, you can make your ML system more agile and more scalable and then increase the qualities and responsibilities.
+MLOps (machine learning operations) is based on DevOps principles and practices that increases overall workflow efficiencies and qualities in machine learning lifecycle. By adopting and implementing MLOps, you can make your ML system more agile and more scalable and then increase the qualities and responsibilities. 
+
+This blog will introduce MLOps Maturity Model to support your MLOps project using Azure Machine Learning. Practical code snippets and step-by-step samples codes are out of scope of this blog, but will be published in our next blog.
+
 
 ### MLOps Maturity Model
 
@@ -176,6 +179,8 @@ Azure Machine Learning can integrate with GitHub. So you can share your train an
 
 #### Azure Machine Learning perspective
 
+<img src="docs/images/level2-azureml.png" width-500 /><br/>
+
 Azure ML `Job`, `Data` and `Environment` are very useful to automate your training job. `Job` manages your training job and logs parameters and metrics. `Data` is an abstract data source for training job. And `Environment` defines Python packages, environment variables, and Docker settings.
 
 Azure Machine Learning CLI v2 is a new version of Azure Machine Learning. You can define your job using YAML files and execute your job via command lines (Azure CLI). Python SDK is also available if you want to define using Python code. And if you job has complex dependencies, you can use Azure ML `Pipeline` to design your job workflows.
@@ -187,7 +192,7 @@ And you can use GitHub Actions to trigger model training job easily via Azure ML
 - Trigger model training job to train model on a schedule to adopt to new data.
 
 
-<img src="docs/images/level2-azureml.png" width-500 /><br/>
+
 
 #### Challenges
 
@@ -222,7 +227,7 @@ And you can use GitHub Actions to trigger model training job easily via Azure ML
 #### Azure Machine Learning perspective
 <img src="docs/images/level3-azureml.png" width-500 /><br/>
 
-Managed Endpoint is very useful to deploy model into inference environments. You can deploy it using Azure ML CLI v2 and automate by using GitHu Actions.
+`Managed (online/batch) Endpoint` is very useful to deploy model into inference environments. You can deploy it using Azure ML CLI v2 and automate by using GitHub Actions that includes endpoint test and responsible ai.
 
 If you want to put gate between Stage and Production, you can use GitHub environments.
 
@@ -230,9 +235,9 @@ If you want to put gate between Stage and Production, you can use GitHub environ
 #### Challenges
 
 - Model degradation
-    - Model is not upgraded after deployment. User experience get worse due to model performance degradation over time.
+    - Model is not upgraded after deployment. User experience gets worse due to model performance degradation over time.
 - Model Retraining
-    - Inference environments are not monitored enough. It is difficult to when to retrain model.
+    - Inference environments are not monitored enough. It is difficult to decide when to retrain model.
     - It is difficult to deploy new model into production inference environment without affecting customers.
 
 
@@ -243,7 +248,7 @@ If you want to put gate between Stage and Production, you can use GitHub environ
     - Monitor metrics and logs that are associated with your model and system performance.
 - Automation
     - Trigger training pipeline for retraining model based on metrics and logs (above).
-    - Rollout new model safely into production endpoint using blue/green deployment.
+    - Rollout new model safely into production endpoint using blue-green deployment.
 
 ---
 
@@ -261,18 +266,20 @@ If you want to put gate between Stage and Production, you can use GitHub environ
 
 <img src="docs/images/level4-azureml.png" width-500 /><br/>
 
-By collections metrics and logs in Azure Monitor and Azure Application Insights, you can judge if deployed model performs well or not and system performance is enough or not. Although often people judgement intervenes, you can trigger retraining pipeline automatically. 
+Metrics and logs are logged and analyzed in Azure Monitor and Azure Application Insights. You can check if deployed model performs well or not and system performance is enough or not. Retraining job is triggered by the defined metrics automatically or via human judgments.
 
-When deploying new model into existing inference endpoint, you can use blue-green deployment to control traffics into production inference endpoint before rolling new model out completely.
+When deploying new model into existing inference endpoint (`Managed Online Endpoint` in this case), you can use blue-green deployment to control traffics into production inference endpoint before rolling new model out completely to minimize the risk of failures.
 
 
 ---
 
 ## Summary
 
-We introduced a concept of MLOps maturity model and explained the architecture and product features of Microsoft Technologies (Azure Machine Learning and GitHub) in each maturity levels. We also discussed the challenges and what's next items for each maturity levels.
+We introduced a concept of MLOps maturity model and explained the architecture and product features of Azure Machine Learning and GitHub etc in each maturity levels. We also discussed the challenges and what's next items for each maturity levels. We will describe how to implement MLOps with Azure Machine Learning and GitHub in the next blog.
 
 
 ## About the author
 
 Keita Onabuta
+
+Meer
