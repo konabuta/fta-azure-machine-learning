@@ -1,0 +1,26 @@
+{ 
+  "Model": { 
+    "ModelName": "Adult Census", 
+    "ModelType": "Classification", 
+    "ModelSummary": "classification to predict house income" 
+  }, 
+  "Metrics": { 
+    "accuracy_score": { 
+      "threshold": ">=0.80" 
+    }, 
+    "f1_score": {} 
+  }, 
+  "FeatureImportance": { 
+    "top_n": 6 
+  }, 
+  "DataExplorer": { 
+    "features": [ 
+      "Age", 
+      "Sex" 
+    ] 
+  }, 
+  "Cohorts": [ 
+    "Young", 
+    "Not Young" 
+  ] 
+} 
